@@ -13,7 +13,7 @@
         "server": "nodemon server/index.js",
         "dev": "concurrently \"nodemon server/index.js\" \"cd client && npm run start\"",
         "build": "cd client && npm build",
-        "start": "node server/index.js",
+        "start": "node server/index.js"
 
   },
   "author": "John ahn",
