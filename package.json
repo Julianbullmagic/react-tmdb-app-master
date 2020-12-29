@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "react blog",
   "main": "index.js",
+  "homepage": "https://movie-fetch-app.herokuapp.com/",
   "engine": {
     "node": "12.19.0",
     "npm": "6.14.8"
