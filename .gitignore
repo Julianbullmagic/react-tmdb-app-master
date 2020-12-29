@@ -1,6 +1,6 @@
-
-
-
+/client/node_modules
+/server/node_modules
+/node_modules
 package-lock.json
 dev.js
 
@@ -13,4 +13,3 @@ yarn-debug.kog*
 yarn-error.log*
 
 .vscode
-/node_modules
