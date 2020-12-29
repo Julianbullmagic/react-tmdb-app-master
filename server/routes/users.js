@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path=require("path")
-const { User } = require(path.join(__dirname, "/models/user"));
+const { User } = require(path.join("/app/server/models/user"));
 
 const { auth } = require("../middleware/auth");
 
