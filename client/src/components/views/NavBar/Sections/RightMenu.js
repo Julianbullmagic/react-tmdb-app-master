@@ -22,25 +22,26 @@ function RightMenu(props) {
 
   if (user.userData && !user.userData.isAuth) {
     return (
-      <Menu mode={props.mode}>
-        <Menu.Item key="mail">
-          <a href="/login">Signin</a>
-        </Menu.Item>
-        <Menu.Item key="app">
-          <a href="/register">Signup</a>
-        </Menu.Item>
-      </Menu>
+      <div style={{display:"flex"}}>
+        <div style={{display:"inline"}}>
+          <a style={{color:"white",textDecoration:"none"}} href="/login">
+          <h2 style={{color:"white",textDecoration:"none",margin:"1vw"}}>Signin</h2></a>
+        </div>
+        <div style={{display:"inline"}}>
+          <a href="/register"><h2 style={{color:"white",textDecoration:"none",margin:"1vw"}}>Signup</h2></a>
+        </div>
+      </div>
     )
   } else {
     return (
-      <Menu mode={props.mode}>
-        <Menu.Item key="logout">
-          <a onClick={logoutHandler}>Logout</a>
-        </Menu.Item>
-      </Menu>
+      <div>
+        <div>
+          <a style={{color:"white",textDecoration:"none"}} onClick={logoutHandler}>
+          <h2 style={{color:"white",textDecoration:"none",margin:"1vw"}}>Logout</h2></a>
+        </div>
+      </div>
     )
   }
 }
 
 export default withRouter(RightMenu);
-

@@ -6,7 +6,7 @@ import GridCard from '../../commons/GridCards'
 const { Title } = Typography;
 function LandingPage() {
     const buttonRef = useRef(null);
-
+    const [searchTerm, setSearchTerm] = useState('')
     const [Movies, setMovies] = useState([])
     const [MainMovieImage, setMainMovieImage] = useState(null)
     const [Loading, setLoading] = useState(true)
@@ -21,9 +21,28 @@ function LandingPage() {
         window.addEventListener("scroll", handleScroll);
     }, [])
 
+    const searchMovies = (event) => {
+      event.preventDefault()
+      if(searchTerm.length>0){
+        fetch(`${API_URL}search/movie/?api_key=${API_KEY}&language=en-US&page=1&query=${searchTerm}`)
+            .then(result => result.json())
+            .then(result => {
+              console.log(result)
+                setMovies(result.results)
+                setMainMovieImage(MainMovieImage || result.results[0])
+                setCurrentPage(result.page)
+            }, setLoading(false))
+            .catch(error => console.error('Error:', error)
+            )        
+      }
+
+        if(searchTerm===""){
+          const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+          fetchMovies(endpoint)
+        }
+    }
 
     const fetchMovies = (endpoint) => {
-
         fetch(endpoint)
             .then(result => result.json())
             .then(result => {
@@ -53,13 +72,15 @@ function LandingPage() {
         const html = document.documentElement;
         const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
         const windowBottom = windowHeight + window.pageYOffset;
-        if (windowBottom >= docHeight - 1) {
+        // if (windowBottom >= docHeight - 1) {
+        //     // loadMoreItems()
+        //     console.log('clicked')
+        //     buttonRef.current.click();
+        // }
+    }
 
-            // loadMoreItems()
-            console.log('clicked')
-            buttonRef.current.click();
-
-        }
+    const handleSearchChange=(event)=>{
+      setSearchTerm(event.target.value)
     }
 
     return (
@@ -75,8 +96,10 @@ function LandingPage() {
 
             <div style={{ width: '85%', margin: '1rem auto' }}>
 
-                <Title level={2} > Movies by latest !!!!!!!!!!!!!!</Title>
+                <Title level={2} > Movies by latest</Title>
                 <hr />
+                <input style={{width:"63vw",marginLeft:"2.5vw",margin:"0.5vw",display:"inline"}} placeholder="enter search term" onChange={(e)=>handleSearchChange(e)}></input>
+                <button style={{marginLeft:"2.5vw",margin:"0.5vw",display:"inline"}} onClick={(e)=>searchMovies(e)}>Search Movies</button>
                 <Row gutter={[16, 16]}>
                     {Movies && Movies.map((movie, index) => (
                         <React.Fragment key={index}>

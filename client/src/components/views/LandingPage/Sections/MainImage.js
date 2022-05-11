@@ -4,28 +4,26 @@ import { Typography } from 'antd';
 const { Title } = Typography;
 
 function MainImage(props) {
+  let height=props.actor?"100vh":"60vh"
     return (
         <div
             style={{
+              padding:"3vw",
                 background:
                     `linear-gradient(to bottom, rgba(0,0,0,0)
             39%,rgba(0,0,0,0)
             41%,rgba(0,0,0,0.65)
             100%),
             url('${props.image}'), #1c1c1c`,
-                height: '500px',
+                height: `${height}`,
+                margin:"3vw",
                 backgroundSize: '100%, cover',
                 backgroundPosition: 'center, center',
-                width: '100%',
+                width: '94vw',
                 position: 'relative'
             }}
         >
-            <div>
-                <div style={{ position: 'absolute', maxWidth: '500px', bottom: '2rem', marginLeft: '2rem' }} >
-                    <Title style={{ color: 'white' }} level={2} > {props.title} </Title>
-                    <p style={{ color: 'white', fontSize: '1rem' }}  >{props.text} </p>
-                </div>
-            </div>
+
         </div>
     )
 }

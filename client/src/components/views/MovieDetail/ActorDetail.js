@@ -69,9 +69,9 @@ console.log(movieId)
 
     return (
         <div>
-
             {!LoadingForMovie ?
                 <MainImage
+                    actor="true"
                     image={`${IMAGE_BASE_URL}${IMAGE_SIZE}${Movie.profile_path}`}
                     title={Movie.name}
                     text={Movie.biography}

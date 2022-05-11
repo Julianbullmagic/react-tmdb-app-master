@@ -17,6 +17,7 @@ function MovieDetailPage(props) {
     const [ActorDetails, setActorDetails]=useState([])
     const [Movie, setMovie] = useState([])
     const [Casts, setCasts] = useState([])
+    const [trailers, setTrailers] = useState([])
     const [CommentLists, setCommentLists] = useState([])
     const [LoadingForMovie, setLoadingForMovie] = useState(true)
     const [LoadingForCasts, setLoadingForCasts] = useState(true)
@@ -29,6 +30,8 @@ function MovieDetailPage(props) {
 
         let endpointForMovieInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`;
         fetchDetailInfo(endpointForMovieInfo)
+        let endpointForMovieTrailer = `${API_URL}movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
+        fetchTrailer(endpointForMovieTrailer)
 
         axios.post('/api/comment/getComments', movieVariable)
             .then(response => {
@@ -46,13 +49,23 @@ function MovieDetailPage(props) {
     const toggleActorView = () => {
         setActorToggle(!ActorToggle)
     }
+    const fetchTrailer = (endpoint) => {
+        fetch(endpoint)
+            .then(result => result.json())
+            .then(result => {
+                console.log("movie trailer",result.results)
+                setTrailers(result.results.slice(0,2))
+            })
+            .catch(error => console.error('Error:', error)
+            )
+    }
 
     const fetchDetailInfo = (endpoint) => {
 
         fetch(endpoint)
             .then(result => result.json())
             .then(result => {
-                console.log(result)
+                console.log("movie",result)
                 setMovie(result)
                 setLoadingForMovie(false)
 
@@ -61,7 +74,7 @@ function MovieDetailPage(props) {
                     .then(result => result.json())
                     .then(result => {
                       console.log('cast')
-                        console.log(result.cast)
+                        console.log(result)
                         setCasts(result.cast)
                     })
 
@@ -117,7 +130,7 @@ function MovieDetailPage(props) {
                             !LoadingForCasts ? Casts.map((cast, index) => (
 
                                 cast.profile_path &&
-                                <GridCards actor image={cast.profile_path} actorDetails={ActorDetails} setActorDetails={setActorDetails} actorId={cast.id} characterName={cast.characterName} />
+                                <GridCards actor={cast} image={cast.profile_path} actorDetails={ActorDetails} setActorDetails={setActorDetails} actorId={cast.id} characterName={cast.characterName} />
 
                             )) :
                                 <div>loading...</div>
@@ -127,6 +140,7 @@ function MovieDetailPage(props) {
 
 
                 <br />
+                {trailers&&trailers.map(trailer=><iframe style={{width:"40vw",height:"43vh",display:"inline"}} src={`https://www.youtube.com/embed/${trailer.key}`}></iframe>)}
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <LikeDislikes video videoId={movieId} userId={localStorage.getItem('userId')} />

@@ -9,24 +9,24 @@
     "npm": "6.14.8"
   },
   "scripts": {
-        "install-all": "concurrently \"npm install\" \"cd client && npm install\"",
-        "client": "cd client && npm start",
-        "server": "nodemon index.js",
-        "dev": "concurrently \"nodemon index.js\" \"cd client && npm run start\"",
-        "build": "cd client && npm build",
-        "start": "node index.js",
-         "heroku-postbuild": "cd client && npm install && npm run build"
-
+    "install-all": "concurrently \"npm install\" \"cd client && npm install\"",
+    "client": "cd client && npm start",
+    "server": "nodemon index.js",
+    "dev": "concurrently \"nodemon index.js\" \"cd client && npm run start\"",
+    "build": "cd client && npm build",
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "John ahn",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^3.0.8",
     "body-parser": "^1.18.3",
-    "cookie-parser": "^1.4.3",
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.4.20",
+    "mongoose": "^5.13.14",
+    "node-gyp": "^9.0.0",
     "react-redux": "^5.0.7",
     "socket.io": "^2.2.0"
   },
